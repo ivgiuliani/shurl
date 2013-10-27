@@ -1,20 +1,22 @@
 {% extends "layout.html" %}
-{% from "_formhelpers.html" import render_field %}
 {% block body %}
     <div class="row">
-    <div class="col-lg-6">
-        <form action="{{ url_for('index') }}" method="post">
-        <dl>
-            {{ render_field(form.url) }}
-            {{ render_field(form.slug) }}
-        </dl>
-        <p><input type="submit" value="Add"/></p>
-        </form>
-    </div>
-    <div class="col-lg-6">
-        <h4>Last 10 URLs added</h4>
-        {% for entry in entries %}
-            <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
-        {% endfor %}
+        <div class="col-lg-6">
+            <h4>Shorten URL</h4>
+            <form action="{{ url_for('index') }}" method="post">
+                <dl>
+                    {{ base_url }}/ <input type="text" name="slug"/>
+                    &rarr;
+                    <input type="url" placeholder="http://"/>
+                </dl>
+                <p><input type="submit" value="Shorten URL"/></p>
+            </form>
+        </div>
+        <div class="col-lg-6">
+            <h4>Last 10 URLs added</h4>
+            {% for entry in entries %}
+                <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

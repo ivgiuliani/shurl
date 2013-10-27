@@ -89,7 +89,10 @@ def index():
     cur = db.execute("SELECT slug, url, timestamp FROM entries ORDER BY timestamp DESC LIMIT 10")
     entries = cur.fetchall()
 
-    return render_template("index.html", entries=entries, form=form)
+    return render_template("index.html",
+                           base_url=request.host,
+                           entries=entries,
+                           form=form)
 
 
 @app.route("/all")

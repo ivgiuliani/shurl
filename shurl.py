@@ -80,7 +80,7 @@ def index():
     if request.method == "POST" and form.validate():
         url = form.url.data
         slug = form.slug.data
-        if not url.startswith("http://") or not url.startswith("https://"):
+        if not url.startswith("http://") and not url.startswith("https://"):
             url = "http://" + url
 
         db.execute("INSERT INTO entries (slug, url) VALUES (?, ?)", (slug, url))

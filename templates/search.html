@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h4>Search results for {{ query }}</h4>
+    {% for entry in entries %}
+        <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
+    {% else %}
+        <p>None of the urls in the database matches your query.</p>
+    {% endfor %}
+{% endblock %}

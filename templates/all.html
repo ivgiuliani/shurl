@@ -3,5 +3,7 @@
     <h4>Complete list of URLs in the database</h4>
     {% for entry in entries %}
         <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
+    {% else %}
+        <p>No URLs have been shortened (yet)</p>
     {% endfor %}
 {% endblock %}

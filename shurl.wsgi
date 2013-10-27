@@ -1,7 +1,12 @@
 import sys
 import os
 
-curr = os.path.realpath(__file__)
-sys.path.append(os.path.join(curr, "ENV", "lib", "python2.7", "site-packages"))
+ENVNAME = "ENV"  # change it with whatever your virtual environment's name is
 
-import shurl
+curr = os.path.dirname(os.path.realpath(__file__))
+envpath = os.path.join(curr, ENVNAME, "lib", "python2.7", "site-packages")
+print envpath
+sys.path.append(curr)
+sys.path.append(envpath)
+
+from shurl import app as application

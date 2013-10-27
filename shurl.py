@@ -103,6 +103,20 @@ def all_entries():
     return render_template("all.html", entries=entries)
 
 
+@app.route("/search")
+def search():
+    db = get_db()
+    query = request.args.get("q")
+    cur = db.execute(
+        "SELECT slug, url, timestamp FROM entries WHERE slug LIKE ? OR url LIKE ? ORDER BY timestamp DESC",
+        ["%%%s%%" % query, "%%%s%%" % query]
+    )
+    entries = cur.fetchall()
+    return render_template("search.html",
+                           query=query,
+                           entries=entries)
+
+
 @app.route("/<path:slug>")
 def redir(slug):
     """Catch everything else"""

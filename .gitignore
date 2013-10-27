@@ -1,0 +1,4 @@
+ENV/
+urls.db
+*.pyc
+*.pyo

@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% block body %}
+    <form action="{{ url_for('index') }}" method="post">
+    <dl>
+        {{ render_field(form.url) }}
+        {{ render_field(form.slug) }}
+    </dl>
+    <p><input type="submit" value="Add"/></p>
+    </form>
+
+    <h2>Last 10 URLs added</h2>
+    {% for entry in entries %}
+        <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
+    {% endfor %}
+{% endblock %}

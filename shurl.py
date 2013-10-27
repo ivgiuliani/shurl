@@ -92,6 +92,14 @@ def index():
     return render_template("index.html", entries=entries, form=form)
 
 
+@app.route("/all")
+def all_entries():
+    db = get_db()
+    cur = db.execute("SELECT slug, url, timestamp FROM entries ORDER BY slug DESC")
+    entries = cur.fetchall()
+    return render_template("all.html", entries=entries)
+
+
 @app.route("/<path:slug>")
 def redir(slug):
     """Catch everything else"""

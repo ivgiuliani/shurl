@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% from "_formhelpers.html" import render_field %}
+{% block body %}
+    <h4>Complete list of URLs in the database</h4>
+    {% for entry in entries %}
+        <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
+    {% endfor %}
+{% endblock %}

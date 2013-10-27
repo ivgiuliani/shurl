@@ -1,3 +1,4 @@
+import os
 import string
 import urllib2
 from sqlite3 import dbapi2 as sqlite3
@@ -5,10 +6,11 @@ from flask import Flask, request,  g, redirect, url_for, abort, render_template,
 from wtforms import Form, StringField, validators
 
 
+CURRPATH = os.path.dirname(os.path.realpath(__file__))
 app = Flask(__name__)
 
 app.config.update(dict(
-    DATABASE='urls.db',
+    DATABASE=os.path.join(CURRPATH, 'urls.db'),
     DEBUG=True,
 ))
 app.config.from_envvar("SHURL_SETTINGS", silent=True)

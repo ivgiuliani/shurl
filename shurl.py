@@ -16,7 +16,7 @@ app.config.update(dict(
 app.config.from_envvar("SHURL_SETTINGS", silent=True)
 
 
-class AddForm(Form):
+class URLForm(Form):
     slug = StringField("slug", [validators.Length(min=2)])
     url = StringField("URL", [validators.Length(min=2)])
 
@@ -83,7 +83,7 @@ def close_db(error):
 def index():
     db = get_db()
 
-    form = AddForm(request.form)
+    form = URLForm(request.form)
     if request.method == "POST" and form.validate():
         url = form.url.data
         slug = form.slug.data

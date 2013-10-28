@@ -29,6 +29,10 @@ class AddForm(Form):
         if slug_exists(field.data):
             raise validators.ValidationError("a slug with this name already exists")
 
+        existing_urls = [rule.rule[1:].split("/")[0] for rule in app.url_map._rules]
+        if field.data in existing_urls:
+            raise validators.ValidationError("this slug is reserved for internal use")
+
     def validate_url(form, field):
         url = field.data
         if not url.startswith("http://") and not url.startswith("https://"):

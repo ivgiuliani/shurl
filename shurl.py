@@ -127,6 +127,28 @@ def search():
                            entries=entries)
 
 
+@app.route("/edit/<path:slug>")
+def edit(slug):
+    if not slug_exists(slug):
+        abort(404)
+
+    db = get_db()
+    entry = db.execute("SELECT slug, url FROM entries WHERE slug = ?", [slug]).fetchone()
+
+    form = URLForm(request.form, slug=entry[0], url=entry[1])
+    if request.method == "POST" and form.validate():
+        url = form.url.data
+        slug = form.slug.data
+        if not url.startswith("http://") and not url.startswith("https://"):
+            url = "http://" + url
+
+        db.execute("UPDATE entries SET slug=?, url=? WHERE slug=?", (slug, url, slug))
+        db.commit()
+        return redirect("index")
+
+    return render_template("edit.html", form=form)
+
+
 @app.route("/delete/<path:slug>")
 def delete(slug):
     db = get_db()

@@ -88,10 +88,13 @@ def index():
 
     cur = db.execute("SELECT slug, url, timestamp FROM entries ORDER BY timestamp DESC LIMIT 10")
     entries = cur.fetchall()
+    cur = db.execute("SELECT slug, url, click_count FROM entries ORDER BY click_count DESC LIMIT 10")
+    top_entries = cur.fetchall()
 
     return render_template("index.html",
                            base_url=request.host,
                            entries=entries,
+                           top_entries=top_entries,
                            form=form)
 
 

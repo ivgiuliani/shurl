@@ -38,12 +38,31 @@
         </form>
     </div>
 
-    <div class="row">
-        <h4>Last 10 URLs added</h4>
-        {% for entry in entries %}
-            <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
-        {% else %}
-            <p>No URLs have been shortened (yet)</p>
-        {% endfor %}
+    <div class="row spaced-top">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Last 10 URLs added</div>
+                <div class="panel-body">
+                    {% for entry in entries %}
+                        <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> ({{ entry.click_count }} clicks)</li>
+                    {% else %}
+                        <p>No URLs have been shortened (yet)</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Top 10 URLs</div>
+                <div class="panel-body">
+                    {% for entry in top_entries %}
+                        <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> ({{ entry.click_count }} clicks)</li>
+                    {% else %}
+                        <p>No URLs have been shortened (yet)</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
     </div>
 {% endblock %}

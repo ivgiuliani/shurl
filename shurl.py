@@ -124,7 +124,9 @@ def redir(slug):
     cur = db.execute("SELECT url FROM entries WHERE slug = ?", [slug])
     results = cur.fetchall()
     if not results or len(results) != 1:
-        abort(404)
+        return redirect(url_for("search", q=slug))
+    db.execute("UPDATE entries SET click_count = click_count + 1 WHERE slug = ?", [slug])
+    db.commit()
     url = results[0][0]
     return redirect(url)
 

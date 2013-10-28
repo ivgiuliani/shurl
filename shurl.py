@@ -101,7 +101,7 @@ def index():
 @app.route("/all")
 def all_entries():
     db = get_db()
-    cur = db.execute("SELECT slug, url, timestamp FROM entries ORDER BY slug DESC")
+    cur = db.execute("SELECT slug, url, timestamp, click_count FROM entries ORDER BY slug DESC")
     entries = cur.fetchall()
     return render_template("all.html", entries=entries)
 

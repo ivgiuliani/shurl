@@ -1,9 +1,23 @@
 {% extends "layout.html" %}
 {% block body %}
     <h4>Complete list of URLs in the database</h4>
-    {% for entry in entries %}
-        <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
-    {% else %}
-        <p>No URLs have been shortened (yet)</p>
-    {% endfor %}
+    <table class="table table-condensed table-striped">
+        <thead>
+            <th>Shortened url</th>
+            <th>Complete url</th>
+            <th>Click count</th>
+            <th>Operations</th>
+        </thead>
+        <tbody>
+        {% for entry in entries %}
+            <tr>
+            <td><a href="/{{ entry.slug }}">/{{ entry.slug }}</a></td>
+            <td>{{ entry.url }}</td>
+            <td>{{ entry.click_count }}</td>
+            <td><a href="{{ url_for("delete", slug=entry.slug) }}" title="Delete this entry"><span class="glyphicon glyphicon-remove"></span></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

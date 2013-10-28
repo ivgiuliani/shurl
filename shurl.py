@@ -90,7 +90,7 @@ def index():
         db.execute("INSERT INTO entries (slug, url) VALUES (?, ?)", (slug, url))
         db.commit()
 
-    cur = db.execute("SELECT slug, url, timestamp FROM entries ORDER BY timestamp DESC LIMIT 10")
+    cur = db.execute("SELECT slug, url, click_count, timestamp FROM entries ORDER BY timestamp DESC LIMIT 10")
     entries = cur.fetchall()
     cur = db.execute("SELECT slug, url, click_count FROM entries ORDER BY click_count DESC LIMIT 10")
     top_entries = cur.fetchall()

@@ -117,6 +117,14 @@ def search():
                            entries=entries)
 
 
+@app.route("/delete/<path:slug>")
+def delete(slug):
+    db = get_db()
+    db.execute("DELETE FROM entries WHERE slug = ?", [slug])
+    db.commit()
+    return redirect(url_for("index"))
+
+
 @app.route("/<path:slug>")
 def redir(slug):
     """Catch everything else"""

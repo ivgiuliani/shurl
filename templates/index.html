@@ -7,13 +7,13 @@
             <div class="col-lg-5">
                 <div class="input-group {% if form.slug.errors %}has-error{% endif %}">
                     <span class="input-group-addon">{{ base_url }}/</span>
-                    <input type="text" class="form-control" name="slug" placeholder="short_url" />
+                    <input type="text" class="form-control" name="slug" placeholder="short_url" value="{{ form.slug.data or "" }}" />
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="input-group {% if form.url.errors %}has-error{% endif %}">
                     <span class="input-group-addon">&rarr;</span>
-                    <input type="url" class="form-control" name="url" placeholder="http://" />
+                    <input type="url" class="form-control" name="url" placeholder="http://" value="{{ form.url.data or "" }}" />
                 </div>
             </div>
             <div class="col-lg-2">

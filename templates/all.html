@@ -14,10 +14,35 @@
             <td><a href="/{{ entry.slug }}">/{{ entry.slug }}</a></td>
             <td>{{ entry.url }}</td>
             <td>{{ entry.click_count }}</td>
-            <td><a href="{{ url_for("delete", slug=entry.slug) }}" title="Delete this entry"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td class="text-center">
+                <a href="{{ url_for("edit", slug=entry.slug) }}" title="Edit this entry"><span class="glyphicon glyphicon-edit"></span></a>
+                <a href="javascript:confirmDelete('{{ entry.slug }}');" title="Delete this entry"><span class="glyphicon glyphicon-remove"></span></a>
+            </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
+    <script type="text/javascript">
+    function confirmDelete(slug) {
+        bootbox.dialog({
+            message: "Do you really want to delete this item?",
+            buttons: {
+                cancel: {
+                    label: "Cancel",
+                    className: "btn-default"
+                },
+                del: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function() {
+                        window.location.href = "{{ url_for("delete", slug="") }}" + slug;
+                    }
+                }
+            }
+        });
+    }
+    </script>
+
+</div>
 {% endblock %}

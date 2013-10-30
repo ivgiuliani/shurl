@@ -118,7 +118,7 @@ def search():
     db = get_db()
     query = request.args.get("q")
     cur = db.execute(
-        "SELECT slug, url, timestamp FROM entries WHERE slug LIKE ? OR url LIKE ? ORDER BY timestamp DESC",
+        "SELECT slug, url, click_count FROM entries WHERE slug LIKE ? OR url LIKE ? ORDER BY click_count DESC",
         ["%%%s%%" % query, "%%%s%%" % query]
     )
     entries = cur.fetchall()

@@ -1,9 +1,29 @@
 {% extends "layout.html" %}
 {% block body %}
-    <h4>Search results for {{ query }}</h4>
-    {% for entry in entries %}
-        <li><a href="/{{ entry.slug }}">/{{ entry.slug }} &rarr; {{ entry.url }}</a> (added on {{ entry.timestamp }})</li>
-    {% else %}
+    <h4>Search results for <strong>{{ query }}</strong></h4>
+    {% if not entries %}
         <p>None of the urls in the database matches your query.</p>
-    {% endfor %}
+    {% else %}
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <th>Shortened URL</th>
+            <th>Complete URL</th>
+            <th>Click count</th>
+            <th class="text-center">Operations</th>
+        </thead>
+        <tbody>
+        {% for entry in entries %}
+            <tr>
+            <td><a href="/{{ entry.slug }}">/{{ entry.slug }}</a></td>
+            <td>{{ entry.url }}</td>
+            <td>{{ entry.click_count }}</td>
+            <td class="text-center">
+                <a href="{{ url_for("edit", slug=entry.slug) }}" title="Edit this entry"><span class="glyphicon glyphicon-edit"></span></a>
+                <a href="javascript:confirmDelete('{{ entry.slug }}');" title="Delete this entry"><span class="glyphicon glyphicon-remove"></span></a>
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 {% endblock %}

@@ -26,6 +26,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
                     <li><a href="{{ url_for('all_entries') }}">All urls</a></li>
+                    <li><a href="{{ url_for('top', limit=10) }}">Top 10</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" method="get" action="{{ url_for('search') }}">
                     <div class="form-group">

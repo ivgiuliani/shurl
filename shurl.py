@@ -109,6 +109,14 @@ def index():
                            top_entries=top_entries,
                            form=form)
 
+@app.route("/top/", defaults={"limit": 10})
+@app.route("/top/<int:limit>/")
+def top(limit):
+    db = get_db()
+    cur = db.execute("SELECT slug, url, click_count FROM entries ORDER BY click_count DESC LIMIT ?", [limit])
+    entries = cur.fetchall()
+    return render_template("top.html", limit=limit, entries=entries)
+
 
 @app.route("/all")
 def all_entries():

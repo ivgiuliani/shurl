@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="btn-group pull-right">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+            Limit <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="{{ url_for("top", limit=10) }}">10</a></li>
+            <li><a href="{{ url_for("top", limit=50) }}">50</a></li>
+            <li><a href="{{ url_for("top", limit=100) }}">100</a></li>
+            <li><a href="{{ url_for("top", limit=500) }}">500</a></li>
+        </ul>
+    </div>
+
+    <h4>Top {{ limit }} clicked URLs in the database</h4>
+
+    <table class="table table-condensed table-striped table-hover">
+        <thead>
+            <th>Shortened URL</th>
+            <th>Complete URL</th>
+            <th>Click count</th>
+            <th class="text-center">Operations</th>
+        </thead>
+        <tbody>
+        {% for entry in entries %}
+            <tr>
+            <td><a href="/{{ entry.slug }}">/{{ entry.slug }}</a></td>
+            <td>{{ entry.url }}</td>
+            <td>{{ entry.click_count }}</td>
+            <td class="text-center">
+                <a href="{{ url_for("edit", slug=entry.slug) }}" title="Edit this entry"><span class="glyphicon glyphicon-edit"></span></a>
+                <a href="javascript:confirmDelete('{{ entry.slug }}');" title="Delete this entry"><span class="glyphicon glyphicon-remove"></span></a>
+            </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+    function confirmDelete(slug) {
+        bootbox.dialog({
+            message: "Do you really want to delete this item?",
+            buttons: {
+                cancel: {
+                    label: "Cancel",
+                    className: "btn-default"
+                },
+                del: {
+                    label: "Delete",
+                    className: "btn-danger",
+                    callback: function() {
+                        window.location.href = "{{ url_for("delete", slug="") }}" + slug;
+                    }
+                }
+            }
+        });
+    }
+    </script>
+
+</div>
+{% endblock %}

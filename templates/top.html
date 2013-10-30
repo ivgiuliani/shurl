@@ -16,6 +16,7 @@
 
     <table class="table table-condensed table-striped table-hover">
         <thead>
+            <th></th>
             <th>Shortened URL</th>
             <th>Complete URL</th>
             <th>Click count</th>
@@ -24,6 +25,7 @@
         <tbody>
         {% for entry in entries %}
             <tr>
+            <td class="text-muted">{{ loop.index }}</td>
             <td><a href="/{{ entry.slug }}">/{{ entry.slug }}</a></td>
             <td>{{ entry.url }}</td>
             <td>{{ entry.click_count }}</td>

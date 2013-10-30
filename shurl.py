@@ -84,14 +84,19 @@ def index():
     db = get_db()
 
     form = URLForm(request.form)
-    if request.method == "POST" and form.validate():
-        url = form.url.data
-        slug = form.slug.data
-        if not url.startswith("http://") and not url.startswith("https://"):
-            url = "http://" + url
+    if request.method == "POST":
+        if form.validate():
+            url = form.url.data
+            slug = form.slug.data
+            if not url.startswith("http://") and not url.startswith("https://"):
+                url = "http://" + url
 
-        db.execute("INSERT INTO entries (slug, url) VALUES (?, ?)", (slug, url))
-        db.commit()
+            db.execute("INSERT INTO entries (slug, url) VALUES (?, ?)", (slug, url))
+            db.commit()
+
+            form.url.data = None
+            form.slug.data = None
+
 
     cur = db.execute("SELECT slug, url, click_count, timestamp FROM entries ORDER BY timestamp DESC LIMIT 10")
     entries = cur.fetchall()

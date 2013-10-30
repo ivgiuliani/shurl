@@ -113,7 +113,8 @@ def index():
 @app.route("/top/<int:limit>/")
 def top(limit):
     db = get_db()
-    cur = db.execute("SELECT slug, url, click_count FROM entries ORDER BY click_count DESC LIMIT ?", [limit])
+    cur = db.execute(
+        "SELECT slug, url, click_count FROM entries ORDER BY click_count DESC, timestamp ASC LIMIT ?", [limit])
     entries = cur.fetchall()
     return render_template("top.html", limit=limit, entries=entries)
 

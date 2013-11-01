@@ -16,7 +16,7 @@ Installation instructions
 
         pip install -r PIP_REQUIREMENTS
 
-4. Configure apache2 through mod_wsgi:
+4. Configure apache2 through mod\_wsgi:
 
         <VirtualHost *:80>
           [...your configuration here...]
@@ -32,3 +32,10 @@ Installation instructions
 
 5. If you didn't use `ENV` as the name for the python's virtual environment,
    change it in `shurl.wsgi`
+
+
+License
+==============================================================================
+
+This software is distributed under the BSD license. See the LICENSE file
+for more informations.

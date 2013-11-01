@@ -1,3 +1,13 @@
-.spaced-top {
-    margin-top: 20px;
+td.short-url {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+
+td.long-url {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #555555;
 }

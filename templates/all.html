@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
     <h4>Complete list of URLs in the database</h4>
+    <div class="table-responsive">
     <table class="table table-condensed table-striped table-hover">
         <thead>
             <th>Shortened URL</th>
@@ -22,6 +23,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 
     <script type="text/javascript">
     function confirmDelete(slug) {

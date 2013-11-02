@@ -14,6 +14,7 @@
 
     <h4>Top {{ limit }} clicked URLs in the database</h4>
 
+    <div class="table-responsive">
     <table class="table table-condensed table-striped table-hover">
         <thead>
             <th></th>
@@ -26,8 +27,8 @@
         {% for entry in entries %}
             <tr>
             <td class="text-muted">{{ loop.index }}</td>
-            <td><a href="/{{ entry.slug }}">/{{ entry.slug }}</a></td>
-            <td>{{ entry.url }}</td>
+            <td class="short-url"><a href="/{{ entry.slug }}">/{{ entry.slug }}</a></td>
+            <td class="long-url">{{ entry.url }}</td>
             <td>{{ entry.click_count }}</td>
             <td class="text-center">
                 <a href="{{ url_for("edit", slug=entry.slug) }}" title="Edit this entry"><span class="glyphicon glyphicon-edit"></span></a>
@@ -37,6 +38,7 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
 
     <script type="text/javascript">
     function confirmDelete(slug) {

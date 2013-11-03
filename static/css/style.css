@@ -11,3 +11,7 @@ td.long-url {
     text-overflow: ellipsis;
     color: #555555;
 }
+
+.spaced-top {
+    margin-top: 20px;
+}

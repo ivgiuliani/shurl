@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
-    <div class="row">
+    <div class="container">
+        <div class="row">
         <h4>Shorten URL</h4>
         <form action="{{ url_for('index') }}" method="post" role="form" class="form">
-        <div class="row">
             <div class="col-lg-5">
                 <div class="input-group {% if form.slug.errors %}has-error{% endif %}">
                     <span class="input-group-addon">{{ base_url }}/</span>
@@ -19,7 +19,6 @@
             <div class="col-lg-2">
                 <button type="submit" class="btn btn-primary">Shorten URL</button>
             </div>
-        </div>
         {% if form.slug.errors %}
             <ul class="errors">
             {% for error in form.slug.errors %}
@@ -36,9 +35,10 @@
             </ul>
         {% endif %}
         </form>
-    </div>
+        </div>
 
-    <div class="row spaced-top">
+        <div class="row spaced-top">
+        <h4>Last 10 URLs added</h4>
         <div class="table-responsive">
             <table class="table table-condensed table-striped table-hover">
                 <thead>
@@ -58,6 +58,7 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 {% endblock %}

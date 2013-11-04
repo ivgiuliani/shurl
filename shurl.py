@@ -41,6 +41,10 @@ class URLForm(Form):
         try:
             # let urllib2 validate the URL for us
             urllib2.urlopen(url, timeout=5)
+        except urllib2.HTTPError:
+            # http errors include things like a 404/403/...
+            # just accept them and do not complain
+            pass
         except urllib2.URLError:
             raise validators.ValidationError(errmsg)
 

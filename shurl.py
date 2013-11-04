@@ -39,8 +39,9 @@ class URLForm(Form):
             url = "http://" + url
         errmsg = url + " is not a valid url"
         try:
+            # let urllib2 validate the URL for us
             urllib2.urlopen(url, timeout=10)
-        except:
+        except urllib2.URLError:
             raise validators.ValidationError(errmsg)
 
 

@@ -2,7 +2,7 @@ import os
 import string
 import urllib2
 from sqlite3 import dbapi2 as sqlite3
-from flask import Flask, request,  g, redirect, url_for, abort, render_template, flash
+from flask import Flask, request,  g, redirect, url_for, abort, render_template, jsonify
 from wtforms import Form, StringField, validators
 
 
@@ -184,6 +184,13 @@ def redir(slug):
     db.commit()
     url = results[0][0]
     return redirect(url)
+
+
+@app.route("/api/exists/<path:slug>/")
+def api_exists(slug):
+    return jsonify({
+        "exists": slug_exists(slug)
+    })
 
 
 def slug_exists(slug):

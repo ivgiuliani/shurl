@@ -236,7 +236,7 @@ def generate_for(url):
 
 
 def base_n(num):
-    numerals = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    numerals = string.digits + string.ascii_letters
     n = len(numerals)
     return ((num == 0) and numerals[0]) or (base_n(num // n)).lstrip(numerals[0]) + numerals[num % n]
 

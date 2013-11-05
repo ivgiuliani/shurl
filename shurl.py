@@ -227,17 +227,18 @@ def generate_for(url):
 
     # convert the hash to base 62
     base = 1
-    slug = base62((h + base) % MAX_URL_BUCKETS)
+    slug = base_n((h + base) % MAX_URL_BUCKETS)
     while slug_exists(slug):
         base += 1
         base = math.pow(base, 2)
-        slug = base62((h + base) % MAX_URL_BUCKETS)
+        slug = base_n((h + base) % MAX_URL_BUCKETS)
     return slug
 
 
-def base62(num):
+def base_n(num):
     numerals = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    return ((num == 0) and numerals[0]) or (base62(num // 62)).lstrip(numerals[0]) + numerals[num % 62]
+    n = len(numerals)
+    return ((num == 0) and numerals[0]) or (base_n(num // n)).lstrip(numerals[0]) + numerals[num % n]
 
 
 if __name__ == '__main__':

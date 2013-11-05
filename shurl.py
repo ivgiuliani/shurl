@@ -189,12 +189,11 @@ def redir(slug):
     return redirect(url)
 
 
-@app.route("/api/generate/", methods=["POST"])
+@app.route("/api/generate/")
 def api_generate():
     try:
-        j = json.loads(request.form["object"])
-        url = j["url"]
-    except (ValueError, KeyError):
+        url = request.args["url"]
+    except KeyError:
         abort(400)
         return
     if not (url.startswith("http://") or url.startswith("https://")):

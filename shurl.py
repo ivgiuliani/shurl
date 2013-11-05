@@ -1,6 +1,9 @@
 import os
 import string
 import urllib2
+import binascii
+import json
+import math
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request,  g, redirect, url_for, abort, render_template, jsonify
 from wtforms import Form, StringField, validators
@@ -186,6 +189,21 @@ def redir(slug):
     return redirect(url)
 
 
+@app.route("/api/generate/", methods=["POST"])
+def api_generate():
+    try:
+        j = json.loads(request.form["object"])
+        url = j["url"]
+    except (ValueError, KeyError):
+        abort(400)
+        return
+    if not (url.startswith("http://") or url.startswith("https://")):
+        abort(400)
+    return jsonify({
+        "slug": generate_for(url)
+    })
+
+
 @app.route("/api/exists/<path:slug>/")
 def api_exists(slug):
     return jsonify({
@@ -198,6 +216,29 @@ def slug_exists(slug):
     cur = db.execute("SELECT url FROM entries WHERE slug = ?", [slug])
     results = cur.fetchall()
     return bool(results)
+
+
+MAX_URL_BUCKETS = 999999999
+def generate_for(url):
+    # use quadratic probing for finding an empty hash bucket
+    # which in our case is an unused shortened hash
+
+    # use CRC32 as string hash
+    h = binascii.crc32(url)
+
+    # convert the hash to base 62
+    base = 1
+    slug = base62((h + base) % MAX_URL_BUCKETS)
+    while slug_exists(slug):
+        base += 1
+        base = math.pow(base, 2)
+        slug = base62((h + base) % MAX_URL_BUCKETS)
+    return slug
+
+
+def base62(num):
+    numerals = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    return ((num == 0) and numerals[0]) or (base62(num // 62)).lstrip(numerals[0]) + numerals[num % 62]
 
 
 if __name__ == '__main__':

@@ -230,7 +230,7 @@ def generate_for(url):
     slug = base_n((h + base) % MAX_URL_BUCKETS)
     while slug_exists(slug):
         base += 1
-        base = math.pow(base, 2)
+        base = int(math.pow(base, 2))
         slug = base_n((h + base) % MAX_URL_BUCKETS)
     return slug
 

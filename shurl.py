@@ -226,7 +226,7 @@ def generate_for(url):
     h = binascii.crc32(url)
 
     # convert the hash to base 62
-    base = 1
+    base = 0
     slug = base_n((h + base) % MAX_URL_BUCKETS)
     while slug_exists(slug):
         base += 1

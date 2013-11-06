@@ -7,13 +7,13 @@
             <div class="col-lg-5">
                 <div class="input-group {% if form.slug.errors %}has-error{% endif %}">
                     <span class="input-group-addon">{{ base_url }}/</span>
-                    <input type="text" class="form-control" name="slug" placeholder="short_url" value="{{ form.slug.data or "" }}" />
+                    <input type="text" class="form-control" name="slug" placeholder="short_url" id="form-slug" value="{{ form.slug.data or "" }}" />
                 </div>
             </div>
             <div class="col-lg-5">
                 <div class="input-group {% if form.url.errors %}has-error{% endif %}">
                     <span class="input-group-addon">&rarr;</span>
-                    <input type="url" class="form-control" name="url" placeholder="http://" value="{{ form.url.data or "" }}" />
+                    <input type="url" class="form-control" name="url" placeholder="http://" id="form-url" value="{{ form.url.data or "" }}" />
                 </div>
             </div>
             <div class="col-lg-2">
@@ -34,6 +34,33 @@
             {% endfor %}
             </ul>
         {% endif %}
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var modified = false;
+                $("#form-url").on('input', function() {
+                    var txt = $(this).val();
+                    if (!modified) {
+                        if (!txt) {
+                            $("#form-slug").val("");
+                            return;
+                        }
+                        if ((txt.substring(0, 7) != "http://") || (txt.substring(0, 8) != "https://")) {
+                            txt = "http://" + txt;
+                        }
+
+                        $.getJSON("{{ url_for("api_generate") }}", {
+                            "url": txt
+                        }, function(data) {
+                            $("#form-slug").val(data["slug"]);
+                        })
+                    }
+                })
+                $("#form-slug").keyup(function() {
+                    modified = true;
+                });
+            });
+        </script>
         </form>
         </div>
 

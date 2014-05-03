@@ -172,7 +172,8 @@ def delete(slug):
     db = get_db()
     db.execute("DELETE FROM entries WHERE slug = ?", [slug])
     db.commit()
-    return redirect(url_for("index"))
+    next_url = request.args.get("next", url_for("index"))
+    return redirect(next_url)
 
 
 @app.route("/<path:slug>")

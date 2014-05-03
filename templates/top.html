@@ -58,7 +58,7 @@
                     label: "Delete",
                     className: "btn-danger",
                     callback: function() {
-                        window.location.href = "{{ url_for("delete", slug="") }}" + slug;
+                        window.location.href = "{{ url_for("delete", slug="") }}" + slug + "?next={{ request.path }}";
                     }
                 }
             }

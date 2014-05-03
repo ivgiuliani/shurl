@@ -1,5 +1,13 @@
 Simple URL shortener for intranet/personal use.
 
+Requirements
+==============================================================================
+Shurl runs on [Flask](http://flask.pocoo.org) with the support of
+[wtforms](wtforms.readthedocs.org) and [flask-WTF](https://flask-wtf.readthedocs.org/).
+It uses sqlite3 as default database, however it's fairly easy to change it
+to something else since the queries it performs are very simple. As usual,
+patches are welcome.
+
 
 Installation instructions
 ==============================================================================

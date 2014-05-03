@@ -22,7 +22,8 @@
                 <th>Shortened URL</th>
                 <th>Complete URL</th>
                 <th>Click count</th>
-                <th class="text-center">Operations</th>
+                <th></th>
+                <th></th>
             <tr>
         </thead>
         <tbody>
@@ -33,8 +34,10 @@
             <td class="long-url">{{ entry.url }}</td>
             <td>{{ entry.click_count }}</td>
             <td class="text-center">
-                <a href="{{ url_for("edit", slug=entry.slug) }}" title="Edit this entry"><span class="glyphicon glyphicon-edit"></span></a>
-                <a href="javascript:confirmDelete('{{ entry.slug }}');" title="Delete this entry"><span class="glyphicon glyphicon-remove"></span></a>
+                <a class="btn btn-default btn-xs" href="{{ url_for("edit", slug=entry.slug) }}" title="Edit this entry">Edit</a>
+            </td>
+            <td class="text-center">
+                <a class="btn btn-danger btn-xs" href="javascript:confirmDelete('{{ entry.slug }}');" title="Delete this entry">Remove</a>
             </td>
             </tr>
         {% endfor %}

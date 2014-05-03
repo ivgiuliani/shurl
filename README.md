@@ -16,7 +16,7 @@ Installation instructions
 
         pip install -r PIP_REQUIREMENTS
 
-4. Configure apache2 through mod\_wsgi:
+4. Use either apache2 configured with mod\_wsgi:
 
         <VirtualHost *:80>
           [...your configuration here...]
@@ -29,6 +29,10 @@ Installation instructions
             Allow from all
           </Directory>
         </VirtualHost>
+
+   Or run it through gunicorn:
+
+        gunicorn shurl:app
 
 5. If you didn't use `ENV` as the name for the python's virtual environment,
    change it in `shurl.wsgi`

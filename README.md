@@ -45,6 +45,8 @@ Installation instructions
 5. If you didn't use `ENV` as the name for the python's virtual environment,
    change it in `shurl.wsgi`
 
+![Screenshot](https://raw.githubusercontent.com/kratorius/shurl/master/screenshot.png)
+
 
 License
 ==============================================================================
